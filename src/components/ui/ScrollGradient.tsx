@@ -22,9 +22,9 @@ export function ScrollGradient() {
     ${purple} 90%, ${pink} 100%)`;
 
   return (
-    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden hidden md:block">
+    <div className="fixed inset-0 pointer-events-none z-50 overflow-hidden">
       {/* Left Edge */}
-      <div className="absolute left-0 top-0 bottom-0 w-[4px]">
+      <div className="absolute left-0 top-0 bottom-0 w-[2px] md:w-[4px]">
         <motion.div 
           style={{ y: yLeft }}
           className="absolute left-0 -top-[1000px] w-full h-[6000px]"
@@ -33,13 +33,13 @@ export function ScrollGradient() {
           <div className="w-full h-full" style={{ background: gradientString }} />
           
           {/* Glow Layers - Pushed slightly off-screen to the left to reduce intensity */}
-          <div className="absolute top-0 bottom-0 -left-[15px] w-[20px] blur-[10px] opacity-90" style={{ background: gradientString }} />
-          <div className="absolute top-0 bottom-0 -left-[40px] w-[50px] blur-[30px] opacity-50" style={{ background: gradientString }} />
+          <div className="absolute top-0 bottom-0 -left-[8px] md:-left-[15px] w-[12px] md:w-[20px] blur-sm md:blur-[10px] opacity-65 md:opacity-90" style={{ background: gradientString }} />
+          <div className="absolute top-0 bottom-0 -left-[20px] md:-left-[40px] w-[30px] md:w-[50px] blur-[18px] md:blur-[30px] opacity-30 md:opacity-50" style={{ background: gradientString }} />
         </motion.div>
       </div>
       
       {/* Right Edge */}
-      <div className="absolute right-0 top-0 bottom-0 w-[4px]">
+      <div className="absolute right-0 top-0 bottom-0 w-[2px] md:w-[4px]">
         <motion.div 
           style={{ y: yRight }}
           className="absolute right-0 -top-[3000px] w-full h-[6000px]"
@@ -49,8 +49,8 @@ export function ScrollGradient() {
           
           {/* Glow Layers - Positioned to bleed inwards from the right */}
           {/* Using left-0 here inside the right-aligned container pushes it off-screen to the right, creating the subtle effect you liked */}
-          <div className="absolute top-0 bottom-0 left-0 w-[20px] blur-[10px] opacity-90" style={{ background: gradientString }} />
-          <div className="absolute top-0 bottom-0 left-0 w-[50px] blur-[30px] opacity-50" style={{ background: gradientString }} />
+          <div className="absolute top-0 bottom-0 left-0 w-[12px] md:w-[20px] blur-sm md:blur-[10px] opacity-65 md:opacity-90" style={{ background: gradientString }} />
+          <div className="absolute top-0 bottom-0 left-0 w-[30px] md:w-[50px] blur-[18px] md:blur-[30px] opacity-30 md:opacity-50" style={{ background: gradientString }} />
         </motion.div>
       </div>
     </div>

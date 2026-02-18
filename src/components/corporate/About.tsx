@@ -10,9 +10,9 @@ const stats = [
 
 export function AboutSection() {
   return (
-    <section className="py-32 bg-background">
+    <section className="py-20 md:py-32 bg-background">
       <div className="container-custom">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 md:gap-16 lg:gap-24 items-start">
           
           {/* Left Column: Narrative */}
           <motion.div
@@ -21,7 +21,7 @@ export function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl font-light mb-12 tracking-tight leading-[1.15] text-foreground dark:text-white">
+            <h2 className="text-3xl md:text-4xl font-light mb-8 md:mb-12 tracking-tight leading-[1.15] text-foreground dark:text-white">
               Leading the <span className="text-gradient font-bold italic inline-block pb-[0.12em] pr-[0.08em]">Digital Revolution</span> <br />
               in Nepal.
             </h2>
@@ -43,8 +43,8 @@ export function AboutSection() {
           </motion.div>
 
           {/* Right Column: Stats & Philosophy */}
-          <div className="space-y-16 pt-4">
-            <div className="grid grid-cols-3 gap-12 border-b border-border pb-12">
+          <div className="space-y-12 md:space-y-16 pt-2 md:pt-4">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-8 sm:gap-12 border-b border-border pb-10 md:pb-12">
               {stats.map((stat, index) => (
                 <motion.div
                   key={index}

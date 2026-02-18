@@ -67,7 +67,7 @@ export function CorporateHero() {
         <div className={isDark ? "absolute inset-0 bg-black/40 z-30" : "absolute inset-0 bg-white/10 z-30"} />
       </div>
 
-      <div className="w-full relative z-40 pt-20">
+      <div className="w-full relative z-40 pt-24 md:pt-20">
         <div className="container-custom">
           <div className="max-w-4xl">
             <motion.div
@@ -84,7 +84,7 @@ export function CorporateHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-7xl md:text-9xl font-bold leading-none tracking-tighter mb-12"
+              className="text-5xl sm:text-6xl md:text-9xl font-bold leading-none tracking-tighter mb-10 md:mb-12"
             >
               <span className="text-foreground dark:text-white">Digital</span> <br />
               <span className="text-gradient">Revolution</span>
@@ -94,7 +94,7 @@ export function CorporateHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-2xl font-normal max-w-xl leading-relaxed mb-16 text-foreground dark:text-white"
+              className="text-lg sm:text-xl md:text-2xl font-normal max-w-xl leading-relaxed mb-12 md:mb-16 text-foreground dark:text-white"
             >
               DGO is the definitive OTT destination for South Asian content.
               We connect millions of viewers with the movies, shows, and live TV they love.

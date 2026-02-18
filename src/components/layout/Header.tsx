@@ -32,13 +32,13 @@ export function Header() {
     >
       <div className="container-custom">
         <div className="flex h-20 items-center justify-between">
-          <Link href="/" className="flex-shrink-0">
+          <Link href="/" className="shrink-0">
             <Logo />
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="flex items-center gap-10">
-            <nav className="hidden md:flex gap-10">
+          <div className="flex items-center gap-4 sm:gap-6 lg:gap-10">
+            <nav className="hidden lg:flex gap-10">
               {navItems.map((item) => (
                 <Link
                   key={item.name}
@@ -61,7 +61,9 @@ export function Header() {
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex md:hidden p-2 text-foreground"
+                className="flex lg:hidden p-2 text-foreground"
+                aria-expanded={isOpen}
+                aria-controls="mobile-nav"
                 aria-label="Toggle Menu"
               >
                 {isOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
@@ -79,7 +81,8 @@ export function Header() {
             animate={{ opacity: 1, height: "auto" }}
             exit={{ opacity: 0, height: 0 }}
             transition={{ duration: 0.3, ease: "easeInOut" }}
-            className="md:hidden bg-background border-t border-border overflow-hidden"
+            id="mobile-nav"
+            className="lg:hidden bg-background border-t border-border overflow-hidden"
           >
             <nav className="container-custom py-8 flex flex-col gap-6">
               {navItems.map((item) => (
