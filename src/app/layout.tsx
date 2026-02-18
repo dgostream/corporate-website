@@ -50,6 +50,11 @@ const objective = localFont({
 export const metadata: Metadata = {
   title: "DGO Corporation | Global Media Infrastructure",
   description: "DGO Corporation is a leading media conglomerate defining the future of digital content and OTT platforms.",
+  icons: {
+    icon: "/fav-icon.png",
+    shortcut: "/fav-icon.png",
+    apple: "/fav-icon.png",
+  },
 };
 
 export default function RootLayout({

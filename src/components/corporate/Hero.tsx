@@ -105,9 +105,9 @@ export function CorporateHero() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
-               <Link 
+              <Link
                 href="/contact" 
-                className="group inline-flex items-center gap-4 text-sm font-bold uppercase tracking-widest transition-colors text-foreground dark:text-white hover:text-brand-pink"
+                className="inline-flex items-center justify-center rounded-full bg-brand-gradient px-7 py-3 text-sm font-bold uppercase tracking-widest text-white shadow-lg shadow-brand-pink/25 transition-transform duration-300 hover:scale-[1.02] hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-pink focus-visible:ring-offset-2 focus-visible:ring-offset-background"
               >
                 Contact Us
               </Link>
