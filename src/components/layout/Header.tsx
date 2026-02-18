@@ -28,7 +28,7 @@ export function Header() {
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-50 bg-background/95 backdrop-blur-sm"
+      className="fixed top-0 left-0 right-0 z-60 bg-background/95 backdrop-blur-sm"
     >
       <div className="container-custom">
         <div className="flex h-20 items-center justify-between">
@@ -61,7 +61,7 @@ export function Header() {
               {/* Mobile Menu Toggle */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex lg:hidden p-2 text-foreground"
+                className="relative z-70 inline-flex h-10 w-10 items-center justify-center rounded-full border border-border bg-background/80 text-foreground lg:hidden"
                 aria-expanded={isOpen}
                 aria-controls="mobile-nav"
                 aria-label="Toggle Menu"

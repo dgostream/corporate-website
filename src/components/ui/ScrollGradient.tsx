@@ -47,10 +47,9 @@ export function ScrollGradient() {
           {/* Core Line */}
           <div className="w-full h-full" style={{ background: gradientString }} />
           
-          {/* Glow Layers - Positioned to bleed inwards from the right */}
-          {/* Using left-0 here inside the right-aligned container pushes it off-screen to the right, creating the subtle effect you liked */}
-          <div className="absolute top-0 bottom-0 left-0 w-[12px] md:w-[20px] blur-sm md:blur-[10px] opacity-65 md:opacity-90" style={{ background: gradientString }} />
-          <div className="absolute top-0 bottom-0 left-0 w-[30px] md:w-[50px] blur-[18px] md:blur-[30px] opacity-30 md:opacity-50" style={{ background: gradientString }} />
+          {/* Glow layers should anchor to the right edge so they bleed inward on small screens */}
+          <div className="absolute top-0 bottom-0 right-0 w-[12px] md:w-[20px] blur-sm md:blur-[10px] opacity-65 md:opacity-90" style={{ background: gradientString }} />
+          <div className="absolute top-0 bottom-0 right-0 w-[30px] md:w-[50px] blur-[18px] md:blur-[30px] opacity-30 md:opacity-50" style={{ background: gradientString }} />
         </motion.div>
       </div>
     </div>
