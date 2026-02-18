@@ -21,8 +21,8 @@ export function AboutSection() {
             viewport={{ once: true }}
             transition={{ duration: 0.8 }}
           >
-            <h2 className="text-4xl font-light mb-12 tracking-tight leading-snug text-foreground dark:text-white">
-              Leading the <span className="text-gradient font-bold italic">Digital Revolution</span> <br />
+            <h2 className="text-4xl font-light mb-12 tracking-tight leading-[1.15] text-foreground dark:text-white">
+              Leading the <span className="text-gradient font-bold italic inline-block pb-[0.12em] pr-[0.08em]">Digital Revolution</span> <br />
               in Nepal.
             </h2>
             
@@ -56,7 +56,7 @@ export function AboutSection() {
                   <div className="text-4xl font-bold text-foreground dark:text-white mb-2 tracking-tighter">
                     {stat.value}
                   </div>
-                  <div className="text-xs font-bold text-muted uppercase tracking-widest">
+                  <div className="text-[10px] font-black text-black dark:text-muted uppercase tracking-[0.2em]">
                     {stat.label}
                   </div>
                 </motion.div>
