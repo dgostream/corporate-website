@@ -11,27 +11,38 @@ import { cn } from "@/lib/utils";
 
 const navItems = [
   { name: "Overview", href: "/" },
+  { name: "About", href: "/#about" },
   { name: "Contact", href: "/contact" },
 ];
 
 export function Header() {
   const pathname = usePathname();
   const [isOpen, setIsOpen] = React.useState(false);
+  const [scrolled, setScrolled] = React.useState(false);
 
-  // Close menu when route changes
   React.useEffect(() => {
     setIsOpen(false);
   }, [pathname]);
+
+  React.useEffect(() => {
+    const onScroll = () => setScrolled(window.scrollY > 16);
+    onScroll();
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
 
   return (
     <motion.header
       initial={{ y: -100 }}
       animate={{ y: 0 }}
       transition={{ duration: 0.5 }}
-      className="fixed top-0 left-0 right-0 z-60 bg-background/95 backdrop-blur-sm"
+      className={cn(
+        "fixed top-0 left-0 right-0 z-60 bg-background/95 backdrop-blur-sm transition-all duration-300",
+        scrolled && "border-b border-border/80"
+      )}
     >
       <div className="container-custom">
-        <div className="flex h-20 items-center justify-between">
+        <div className={cn("flex items-center justify-between transition-[height] duration-300", scrolled ? "h-16" : "h-20")}>
           <Link href="/" className="shrink-0">
             <Logo />
           </Link>
@@ -44,9 +55,9 @@ export function Header() {
                   key={item.name}
                   href={item.href}
                   className={cn(
-                    "text-xs font-bold uppercase tracking-widest transition-colors py-2",
+                    "relative text-xs font-bold uppercase tracking-widest transition-colors py-2 after:absolute after:bottom-0 after:left-0 after:h-px after:w-0 after:bg-brand-gradient after:transition-all after:duration-300 hover:after:w-full",
                     pathname === item.href 
-                      ? "text-brand-pink" 
+                      ? "text-brand-pink after:w-full" 
                       : "text-muted hover:text-foreground"
                   )}
                 >

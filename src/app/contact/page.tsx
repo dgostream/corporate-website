@@ -1,159 +1,233 @@
 "use client";
 
+import * as React from "react";
 import { motion } from "framer-motion";
-import { Mail, MapPin, Phone } from "lucide-react";
-import { Button } from "@/components/ui/Button";
+import { Check, ChevronDown, Mail, MapPin } from "lucide-react";
+import { CtaButton } from "@/components/ui/CtaButton";
+import { cn } from "@/lib/utils";
+
+function isEmail(value: string) {
+  return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value.trim());
+}
+
+function SignalMeter({ filled }: { filled: number }) {
+  return (
+    <div className="flex items-end gap-1.5" aria-label={`Signal ${filled} of 5`}>
+      {[1, 2, 3, 4, 5].map((i) => (
+        <span
+          key={i}
+          className={cn(
+            "w-1 rounded-full transition-all duration-500",
+            i <= filled ? "bg-brand-gradient" : "bg-border"
+          )}
+          style={{ height: `${8 + i * 4}px` }}
+        />
+      ))}
+    </div>
+  );
+}
 
 export default function ContactPage() {
+  const [form, setForm] = React.useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    subject: "General Inquiry",
+    message: "",
+  });
+
+  const valid = {
+    firstName: form.firstName.trim().length > 1,
+    lastName: form.lastName.trim().length > 1,
+    email: isEmail(form.email),
+    message: form.message.trim().length > 8,
+  };
+  const filled = Object.values(valid).filter(Boolean).length + 1;
+
+  const set =
+    (key: keyof typeof form) =>
+    (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
+      setForm((prev) => ({ ...prev, [key]: e.target.value }));
+
   return (
-    <div className="min-h-screen pt-40 pb-32 bg-background">
+    <div className="min-h-screen bg-background pt-40 pb-32">
       <div className="container-custom">
-        <div className="max-w-3xl mb-24">
-          <motion.h1 
+        <div className="mb-24 max-w-3xl">
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-7xl md:text-8xl font-bold text-foreground tracking-tighter mb-8"
+            className="mb-8 text-7xl font-bold tracking-tighter text-foreground md:text-8xl"
           >
-            Inquiries
+            Contact
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-2xl text-foreground font-normal leading-relaxed"
+            className="text-2xl font-normal leading-relaxed text-foreground"
           >
-            For investor relations, partnership inquiries, or media requests, please reach out to our corporate headquarters.
+            For partnerships, media, or general inquiries, reach out to Dish Home Digital Pvt. Ltd. in Lalitpur.
           </motion.p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-24 items-start">
-          {/* Contact Form */}
+        <div className="grid grid-cols-1 items-start gap-24 lg:grid-cols-2">
           <motion.div
-             initial={{ opacity: 0, y: 20 }}
-             animate={{ opacity: 1, y: 0 }}
-             transition={{ delay: 0.2 }}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
           >
-            <form className="space-y-12">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
-                <div className="space-y-4 group">
-                  <label htmlFor="firstName" className="text-xs font-bold uppercase tracking-widest text-muted group-focus-within:text-foreground transition-colors">First Name</label>
-                  <input 
-                    type="text" 
+            <div className="mb-10 flex items-center justify-between">
+              <span className="text-[10px] font-bold uppercase tracking-[0.28em] text-muted">
+                Transmission
+              </span>
+              <div className="flex items-center gap-3">
+                <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-muted">
+                  Signal
+                </span>
+                <SignalMeter filled={filled} />
+              </div>
+            </div>
+
+            <form className="space-y-12" onSubmit={(e) => e.preventDefault()}>
+              <div className="grid grid-cols-1 gap-12 md:grid-cols-2">
+                <Field
+                  id="firstName"
+                  label="First Name"
+                  valid={valid.firstName}
+                >
+                  <input
+                    type="text"
                     id="firstName"
-                    className="w-full bg-transparent border-b border-border py-4 text-xl text-foreground focus:border-foreground outline-none transition-colors rounded-none placeholder-muted/30"
+                    value={form.firstName}
+                    onChange={set("firstName")}
+                    className="w-full rounded-none border-b border-border bg-transparent py-4 text-xl text-foreground outline-none transition-colors placeholder-muted/30 focus:border-brand-pink"
                     placeholder="John"
                   />
-                </div>
-                <div className="space-y-4 group">
-                  <label htmlFor="lastName" className="text-xs font-bold uppercase tracking-widest text-muted group-focus-within:text-foreground transition-colors">Last Name</label>
-                  <input 
-                    type="text" 
+                </Field>
+                <Field id="lastName" label="Last Name" valid={valid.lastName}>
+                  <input
+                    type="text"
                     id="lastName"
-                    className="w-full bg-transparent border-b border-border py-4 text-xl text-foreground focus:border-foreground outline-none transition-colors rounded-none placeholder-muted/30"
+                    value={form.lastName}
+                    onChange={set("lastName")}
+                    className="w-full rounded-none border-b border-border bg-transparent py-4 text-xl text-foreground outline-none transition-colors placeholder-muted/30 focus:border-brand-pink"
                     placeholder="Doe"
                   />
-                </div>
+                </Field>
               </div>
 
-              <div className="space-y-4 group">
-                <label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-muted group-focus-within:text-foreground transition-colors">Corporate Email</label>
-                <input 
-                  type="email" 
+              <Field id="email" label="Email" valid={valid.email}>
+                <input
+                  type="email"
                   id="email"
-                  className="w-full bg-transparent border-b border-border py-4 text-xl text-foreground focus:border-foreground outline-none transition-colors rounded-none placeholder-muted/30"
-                  placeholder="john@company.com"
+                  value={form.email}
+                  onChange={set("email")}
+                  className="w-full rounded-none border-b border-border bg-transparent py-4 text-xl text-foreground outline-none transition-colors placeholder-muted/30 focus:border-brand-pink"
+                  placeholder="you@email.com"
                 />
-              </div>
+              </Field>
 
-              <div className="space-y-4 group">
-                <label htmlFor="subject" className="text-xs font-bold uppercase tracking-widest text-muted group-focus-within:text-foreground transition-colors">Subject</label>
-                <select 
-                  id="subject"
-                  className="w-full bg-transparent border-b border-border py-4 text-xl text-foreground focus:border-foreground outline-none transition-colors rounded-none appearance-none cursor-pointer"
-                >
-                  <option className="bg-background">Investor Relations</option>
-                  <option className="bg-background">Partnership Inquiry</option>
-                  <option className="bg-background">Media / Press</option>
-                  <option className="bg-background">General Inquiry</option>
-                </select>
-              </div>
+              <Field id="subject" label="Subject" valid>
+                <div className="relative">
+                  <select
+                    id="subject"
+                    value={form.subject}
+                    onChange={set("subject")}
+                    className="w-full cursor-pointer appearance-none rounded-none border-b border-border bg-transparent py-4 pr-10 text-xl text-foreground outline-none transition-colors focus:border-brand-pink"
+                  >
+                    <option className="bg-background">General Inquiry</option>
+                    <option className="bg-background">Partnership</option>
+                    <option className="bg-background">Media / Press</option>
+                    <option className="bg-background">Support</option>
+                  </select>
+                  <ChevronDown className="pointer-events-none absolute top-1/2 right-0 h-5 w-5 -translate-y-1/2 text-muted transition-transform duration-300 group-focus-within:rotate-180 group-focus-within:text-brand-pink" />
+                </div>
+              </Field>
 
-              <div className="space-y-4 group">
-                <label htmlFor="message" className="text-xs font-bold uppercase tracking-widest text-muted group-focus-within:text-foreground transition-colors">Message</label>
-                <textarea 
+              <Field id="message" label="Message" valid={valid.message}>
+                <textarea
                   id="message"
                   rows={4}
-                  className="w-full bg-transparent border-b border-border py-4 text-xl text-foreground focus:border-foreground outline-none transition-colors resize-none rounded-none placeholder-muted/30"
+                  value={form.message}
+                  onChange={set("message")}
+                  className="w-full resize-none rounded-none border-b border-border bg-transparent py-4 text-xl text-foreground outline-none transition-colors placeholder-muted/30 focus:border-brand-pink"
                   placeholder="How can we help?"
-                ></textarea>
-              </div>
+                />
+              </Field>
 
               <div className="pt-8">
-                <Button 
-                  type="submit"
-                  className="w-full md:w-auto bg-foreground text-background hover:bg-brand-gradient hover:text-white h-14 px-12 text-sm font-bold uppercase tracking-widest rounded-full"
-                >
+                <CtaButton type="submit" tone="solid" className="w-full md:w-auto">
                   Send Message
-                </Button>
+                </CtaButton>
               </div>
             </form>
           </motion.div>
 
-          {/* Contact Info */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="space-y-16 lg:pl-12"
+            className="lg:pl-12"
           >
-            <div>
-              <h3 className="text-xs font-bold text-foreground uppercase tracking-widest mb-8">
-                Headquarters
-              </h3>
-              <div className="space-y-8">
-                <div className="flex items-start gap-6">
-                  <MapPin className="w-5 h-5 text-foreground mt-1" />
-                  <address className="not-italic text-xl font-light text-foreground leading-relaxed">
-                    DGO Corporation Tower<br />
-                    Kathmandu, Nepal<br />
-                    44600
-                  </address>
-                </div>
-                <div className="flex items-center gap-6">
-                  <Phone className="w-5 h-5 text-foreground" />
-                  <a href="tel:+97712345678" className="text-xl font-light text-foreground hover:text-brand-pink transition-colors">
-                    +977-1-2345678
-                  </a>
-                </div>
-                <div className="flex items-center gap-6">
-                  <Mail className="w-5 h-5 text-foreground" />
-                  <a href="mailto:business@dgostream.com" className="text-xl font-light text-foreground hover:text-brand-pink transition-colors">
-                    business@dgostream.com
-                  </a>
-                </div>
+            <h3 className="mb-8 text-xs font-bold uppercase tracking-widest text-foreground">
+              Headquarters
+            </h3>
+            <div className="space-y-8">
+              <div className="flex items-start gap-6">
+                <MapPin className="mt-1 h-5 w-5 shrink-0 text-foreground" />
+                <address className="not-italic text-xl font-light leading-relaxed text-foreground">
+                  Dish Home Digital Pvt. Ltd.<br />
+                  Chhyasikot, Lalitpur<br />
+                  Nepal
+                </address>
               </div>
-            </div>
-
-            <div className="h-px bg-border w-full" />
-
-            <div>
-              <h3 className="text-xs font-bold text-foreground uppercase tracking-widest mb-8">
-                Global Offices
-              </h3>
-              <div className="grid grid-cols-2 gap-12">
-                <div>
-                  <h4 className="text-2xl font-bold text-foreground mb-2 tracking-tight">Singapore</h4>
-                  <p className="text-muted text-sm font-medium uppercase tracking-wider">Regional Hub</p>
-                </div>
-                <div>
-                  <h4 className="text-2xl font-bold text-foreground mb-2 tracking-tight">Dubai</h4>
-                  <p className="text-muted text-sm font-medium uppercase tracking-wider">MENA Operations</p>
-                </div>
+              <div className="flex items-center gap-6">
+                <Mail className="h-5 w-5 shrink-0 text-foreground" />
+                <a
+                  href="mailto:contact@dgostream.com"
+                  className="text-2xl font-medium text-foreground underline-offset-4 transition-colors hover:text-brand-pink hover:underline"
+                >
+                  contact@dgostream.com
+                </a>
               </div>
             </div>
           </motion.div>
         </div>
       </div>
+    </div>
+  );
+}
+
+function Field({
+  id,
+  label,
+  valid,
+  children,
+}: {
+  id: string;
+  label: string;
+  valid: boolean;
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="group space-y-4">
+      <div className="flex items-center justify-between">
+        <label
+          htmlFor={id}
+          className="text-xs font-bold uppercase tracking-widest text-muted transition-colors group-focus-within:text-brand-pink"
+        >
+          {label}
+        </label>
+        <Check
+          className={cn(
+            "h-4 w-4 transition-all duration-300",
+            valid
+              ? "scale-100 text-brand-pink opacity-100"
+              : "scale-75 text-muted opacity-0"
+          )}
+        />
+      </div>
+      {children}
     </div>
   );
 }

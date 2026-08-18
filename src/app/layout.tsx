@@ -5,6 +5,7 @@ import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import { ScrollGradient } from "@/components/ui/ScrollGradient";
+import { ScrollProgress } from "@/components/ui/ScrollProgress";
 
 const objective = localFont({
   src: [
@@ -48,8 +49,9 @@ const objective = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "DGO Corporation | Global Media Infrastructure",
-  description: "DGO Corporation is a leading media conglomerate defining the future of digital content and OTT platforms.",
+  title: "DGO | Nepal's OTT Home",
+  description:
+    "DGO is Nepal's OTT home for live sports and Nepali entertainment worldwide. First OTT licence in Nepal, part of Dish Media Network.",
   icons: {
     icon: "/fav-icon.png",
     shortcut: "/fav-icon.png",
@@ -74,6 +76,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           <ScrollGradient />
+          <ScrollProgress />
           <Header />
           <main className="min-h-screen">
             {children}

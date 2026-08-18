@@ -1,5 +1,4 @@
 import { Logo } from "@/components/ui/Logo";
-import Image from "next/image";
 
 export function Footer() {
   return (
@@ -12,9 +11,8 @@ export function Footer() {
               <Logo />
             </div>
             <p className="text-muted max-w-sm font-normal leading-relaxed">
-              DGO is the market leader in digital entertainment in Nepal, 
-              with 670,000+ verified users and exclusive rights to the 
-              Nepal Premier League (NPL).
+              Nepal&apos;s OTT home for live sports and Nepali entertainment
+              worldwide. First OTT licence in Nepal, part of Dish Media Network.
             </p>
           </div>
 
@@ -23,9 +21,8 @@ export function Footer() {
             <h4 className="text-xs font-bold uppercase tracking-widest">Navigation</h4>
             <ul className="space-y-4 text-sm text-muted">
               <li><a href="/" className="hover:text-primary transition-colors">Overview</a></li>
+              <li><a href="/#about" className="hover:text-primary transition-colors">About</a></li>
               <li><a href="/contact" className="hover:text-primary transition-colors">Contact</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Governance</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Careers</a></li>
             </ul>
           </div>
 
@@ -33,21 +30,20 @@ export function Footer() {
           <div className="space-y-6">
             <h4 className="text-xs font-bold uppercase tracking-widest">Corporate Office</h4>
             <ul className="space-y-4 text-sm text-muted">
-              <li>Kathmandu, Nepal</li>
-              <li>business@dgostream.com</li>
-              <li>+977-1-2345678</li>
+              <li>Dish Home Digital Pvt. Ltd.</li>
+              <li>Chhyasikot, Lalitpur, Nepal</li>
+              <li>contact@dgostream.com</li>
             </ul>
           </div>
         </div>
         
         <div className="flex flex-col md:flex-row justify-between items-center text-[10px] text-muted pt-12 border-t border-border">
           <div className="mb-4 md:mb-0 uppercase tracking-widest">
-            © {new Date().getFullYear()} DGO Corporation. All rights reserved.
+            © {new Date().getFullYear()} Dish Home Digital Pvt. Ltd. All rights reserved.
           </div>
           <div className="flex gap-8 uppercase tracking-widest">
             <a href="#" className="hover:text-foreground transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-foreground transition-colors">Terms of Use</a>
-            <a href="#" className="hover:text-foreground transition-colors">Sitemap</a>
           </div>
         </div>
       </div>

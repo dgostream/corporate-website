@@ -1,15 +1,19 @@
 "use client";
 
-import { motion } from "framer-motion";
-import Link from "next/link";
+import { motion, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import { useTheme } from "next-themes";
 import * as React from "react";
 import { withAssetVersion } from "@/lib/assets";
+import { WatchNowSlider } from "@/components/ui/WatchNowSlider";
+import { SpotlightCard } from "@/components/ui/SpotlightCard";
 
 export function CorporateHero() {
   const { theme } = useTheme();
   const [mounted, setMounted] = React.useState(false);
+  const { scrollY } = useScroll();
+  const heroY = useTransform(scrollY, [0, 500], [0, 80]);
+  const heroOpacity = useTransform(scrollY, [0, 420], [1, 0.15]);
 
   React.useEffect(() => {
     setMounted(true);
@@ -67,7 +71,10 @@ export function CorporateHero() {
         <div className={isDark ? "absolute inset-0 bg-black/40 z-30" : "absolute inset-0 bg-white/10 z-30"} />
       </div>
 
-      <div className="w-full relative z-40 pt-24 md:pt-20">
+      <motion.div
+        style={{ y: heroY, opacity: heroOpacity }}
+        className="w-full relative z-40 pt-24 md:pt-20"
+      >
         <div className="container-custom">
           <div className="max-w-4xl">
             <motion.div
@@ -76,7 +83,7 @@ export function CorporateHero() {
               transition={{ duration: 0.8 }}
             >
               <h5 className="font-medium tracking-[0.2em] uppercase mb-8 text-xs text-foreground dark:text-white">
-                Nepal's Premier Digital Platform
+                Nepal&apos;s OTT Home
               </h5>
             </motion.div>
 
@@ -84,37 +91,55 @@ export function CorporateHero() {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.1 }}
-              className="text-5xl sm:text-6xl md:text-9xl font-bold leading-none tracking-tighter mb-10 md:mb-12"
+              className="text-5xl sm:text-6xl md:text-8xl font-bold leading-[0.95] tracking-tighter mb-10 md:mb-12"
             >
-              <span className="text-foreground dark:text-white">Digital</span> <br />
-              <span className="text-gradient">Revolution</span>
+              <span className="text-foreground dark:text-white">Connecting Nepalese,</span>{" "}
+              <span className="text-gradient text-gradient-shift">everywhere.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-lg sm:text-xl md:text-2xl font-normal max-w-xl leading-relaxed mb-12 md:mb-16 text-foreground dark:text-white"
+              className="text-lg sm:text-xl md:text-2xl font-normal max-w-xl leading-relaxed mb-6 md:mb-7 text-foreground dark:text-white"
             >
-              DGO is the definitive OTT destination for South Asian content.
-              We connect millions of viewers with the movies, shows, and live TV they love.
+              Live sports and Nepali entertainment, streamed worldwide.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.3 }}
+              className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-3 md:mb-4 max-w-2xl"
             >
-              <Link
-                href="/contact" 
-                className="inline-flex items-center justify-center rounded-full bg-brand-gradient px-7 py-3 text-sm font-bold uppercase tracking-widest text-white shadow-lg shadow-brand-pink/25 transition-transform duration-300 hover:scale-[1.02] hover:opacity-95 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-pink focus-visible:ring-offset-2 focus-visible:ring-offset-background"
-              >
-                Contact Us
-              </Link>
+              {[
+                { label: "Licensed", value: "First OTT licence in Nepal" },
+                { label: "Content", value: "Live sport + Nepali entertainment" },
+              ].map((item) => (
+                <SpotlightCard
+                  key={item.label}
+                  className="rounded-2xl border border-border bg-background/60 px-6 py-6 md:px-8 md:py-7 backdrop-blur-sm transition-all duration-500 hover:-translate-y-1 hover:border-brand-pink/40"
+                >
+                  <div className="text-[10px] font-bold uppercase tracking-[0.2em] text-brand-pink mb-2">
+                    {item.label}
+                  </div>
+                  <div className="text-base font-medium text-foreground dark:text-white leading-snug">
+                    {item.value}
+                  </div>
+                </SpotlightCard>
+              ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
+            >
+              <WatchNowSlider />
             </motion.div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

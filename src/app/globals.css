@@ -71,3 +71,41 @@ html {
 .bg-brand-gradient {
   @apply bg-gradient-to-r from-[#8a3ffc] via-[#ff00bd] to-[#ff4d00];
 }
+
+.text-gradient-shift {
+  background-size: 200% auto;
+  animation: gradient-shift 5s ease infinite;
+}
+
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% center; }
+  50% { background-position: 100% center; }
+}
+
+@keyframes marquee {
+  from { transform: translateX(0%); }
+  to { transform: translateX(-33.33%); }
+}
+
+.animate-marquee {
+  animation: marquee 50s linear infinite;
+}
+
+.eq-bar {
+  height: 30%;
+  animation: eq 0.85s ease-in-out infinite;
+}
+
+@keyframes eq {
+  0%, 100% { height: 25%; }
+  40% { height: 100%; }
+  70% { height: 45%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee,
+  .eq-bar,
+  .text-gradient-shift {
+    animation: none;
+  }
+}
